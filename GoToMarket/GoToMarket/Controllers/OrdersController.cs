@@ -7,36 +7,34 @@ namespace GoToMarket.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        // GET: api/Orders
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Order> Get()
         {
-            return new string[] { "value1", "value2" };
+            return MysqlClient.GetOrdersInMysql();
         }
 
-        // GET: api/Orders/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Order Get(string id)
         {
-            return "value";
+            return MysqlClient.GetOrderByIdInMysql(id);
         }
 
-        // POST: api/Orders
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Order order)
         {
+            MysqlClient.InsertNewOrderInMysql(order.Value, order.ProductName, order.OwnerId, order.BuyerId);
         }
 
-        // PUT: api/Orders/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(string id, [FromBody] Order order)
         {
+            MysqlClient.UpdateOrderInMysql(id, order.Value, order.ProductName, order.OwnerId, order.BuyerId);
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            MysqlClient.DeleteOrderInMysql(id);
         }
     }
 }

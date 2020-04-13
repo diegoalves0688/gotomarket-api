@@ -7,36 +7,34 @@ namespace GoToMarket.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        // GET: api/Products
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+        public List<Product> Get() 
+        { 
+            return MysqlClient.GetProductsInMysql();
         }
 
-        // GET: api/Products/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Product Get(string id)
         {
-            return "value";
+            return MysqlClient.GetProductByIdInMysql(id);
         }
 
-        // POST: api/Products
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Product product)
         {
+            MysqlClient.InsertNewProductInMysql(product.Name, product.Url, product.Description, product.Quantity.ToString(), product.Price.ToString(), product.OwnerId); 
         }
 
-        // PUT: api/Products/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(string id, [FromBody] Product product)
         {
+            MysqlClient.UpdateProductInMysql(id, product.Name, product.Url, product.Description, product.Quantity.ToString(), product.Price.ToString(), product.OwnerId);
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            MysqlClient.DeleteProductInMysql(id);
         }
     }
 }

@@ -88,5 +88,15 @@ C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\ru\Mic
 C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\workspace\gotomarket-api\GoToMarket\GoToMarket\obj\Debug\netcoreapp3.1\GoToMarket.MvcApplicationPartsAssemblyInfo.cache
 C:\workspace\gotomarket-api\GoToMarket\GoToMarket\obj\Debug\netcoreapp3.1\GoToMarket.csproj.CopyComplete
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\MySql.Data.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\Ubiety.Dns.Core.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\Renci.SshNet.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\SshNet.Security.Cryptography.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\workspace\gotomarket-api\GoToMarket\GoToMarket\obj\Debug\netcoreapp3.1\GoToMarket.MvcApplicationPartsAssemblyInfo.cache

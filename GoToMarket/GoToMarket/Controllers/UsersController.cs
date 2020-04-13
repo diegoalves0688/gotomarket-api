@@ -7,36 +7,35 @@ namespace GoToMarket.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        // GET: api/Users
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            return MysqlClient.GetUsersInMysql();
         }
 
-        // GET: api/Users/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{email}")]
+        public User GetByEmail(string email)
         {
-            return "value";
+            var user = MysqlClient.GetUserByEmailInMysql(email);
+            return user;
         }
 
-        // POST: api/Users
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] User user)
         {
+            MysqlClient.InsertNewUserInMysql(user.Name, user.Email, user.Address, user.Payment_id, user.Payment_key);
         }
 
-        // PUT: api/Users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(string id, [FromBody] User user)
         {
+            MysqlClient.UpdateUserInMysql(id, user.Name, user.Email, user.Address, user.Payment_id, user.Payment_key);
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            MysqlClient.DeleteUserInMysql(id);
         }
     }
 }
