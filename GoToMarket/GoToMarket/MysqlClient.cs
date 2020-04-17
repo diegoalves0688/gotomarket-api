@@ -344,7 +344,7 @@ namespace GoToMarket
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
                 sql = $"INSERT INTO orders (order_date, order_value, order_product_name, order_product_owner_id, order_product_buyer_id, order_reference) " +
-                    $"VALUES ('{now}', '{order_value}', '{order_product_name}', '{order_product_owner_id}', '{order_product_buyer_id}, '{order_reference}')";
+                    $"VALUES ('{now}', '{order_value}', '{order_product_name}', '{order_product_owner_id}', '{order_product_buyer_id}', '{order_reference}')";
                 Console.WriteLine("Running query: " + sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();

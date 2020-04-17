@@ -28,6 +28,8 @@ namespace GoToMarket.CieloConnector
 			{
 				try
 				{
+					var user = MysqlClient.GetUserByIdInMysql(order.OwnerId.ToString());
+
 					var endpoint = $"{CieloSandboxPostUrl}/1/sales/";
 
 					var request = ParsePaymentRequest(order);
@@ -41,6 +43,8 @@ namespace GoToMarket.CieloConnector
 						var requestContent = new StringContent(JsonConvert.SerializeObject(request));
 
 						requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+						requestContent.Headers.Add("MerchantId", user.Payment_id);
+						requestContent.Headers.Add("MerchantKey", user.Payment_key);
 
 						var response = httpClient.PostAsync(endpoint, requestContent, cancellationToken.Token).Result;
 
