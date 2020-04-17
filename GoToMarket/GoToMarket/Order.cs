@@ -23,5 +23,14 @@ namespace GoToMarket
 
         [DataMember(Name = "buyerId")]
         public long BuyerId { get; set; }
+
+        [DataMember(Name = "cardNumber")]
+        public string CardNumber { get; set; }
+
+        [DataMember(Name = "expirationDate")]
+        public string ExpirationDate { get; set; }
+
+        [DataMember(Name = "securityCode")]
+        public string SecurityCode { get; set; }
     }
 }

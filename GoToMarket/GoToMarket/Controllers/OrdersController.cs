@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoToMarket.Controllers
@@ -22,7 +23,12 @@ namespace GoToMarket.Controllers
         [HttpPost]
         public void Post([FromBody] Order order)
         {
-            MysqlClient.InsertNewOrderInMysql(order.Value, order.ProductName, order.OwnerId, order.BuyerId);
+            var paymentResponse = CieloConnector.CieloClient.PostPayment(order);
+
+            if (paymentResponse != null && paymentResponse.PaymentObj.Status == 2)
+                MysqlClient.InsertNewOrderInMysql(order.Value, order.ProductName, order.OwnerId, order.BuyerId, paymentResponse.MerchantOrderId);
+            else
+                throw new Exception("Error on trying approve payment.");
         }
 
         [HttpPut("{id}")]

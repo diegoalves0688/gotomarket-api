@@ -93,6 +93,41 @@ namespace GoToMarket
             return user;
         }
 
+        public static User GetUserByIdInMysql(string user_id)
+        {
+            var user = new User();
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                string sql = "SELECT * FROM users WHERE user_id='" + user_id + "'";
+                Console.WriteLine("Running query: " + sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    long.TryParse(rdr[0].ToString(), out long id);
+                    user.Id = id;
+                    user.Name = rdr[1].ToString();
+                    user.Email = rdr[2].ToString();
+                    user.Address = rdr[3].ToString();
+                    user.Payment_id = rdr[4].ToString();
+                    user.Payment_key = rdr[5].ToString();
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            conn.Close();
+            return user;
+        }
+
         public static List<User> GetUsersInMysql()
         {
             var userList = new List<User>();
@@ -298,7 +333,7 @@ namespace GoToMarket
 
         #region order
 
-        public static void InsertNewOrderInMysql(long order_value, string order_product_name, long order_product_owner_id, long order_product_buyer_id)
+        public static void InsertNewOrderInMysql(long order_value, string order_product_name, long order_product_owner_id, long order_product_buyer_id, string order_reference)
         {
             var now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); // 2019-12-31 23:40:10
             string sql = string.Empty;
@@ -308,8 +343,8 @@ namespace GoToMarket
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
-                sql = $"INSERT INTO orders (order_date, order_value, order_product_name, order_product_owner_id, order_product_buyer_id) " +
-                    $"VALUES ('{now}', '{order_value}', '{order_product_name}', '{order_product_owner_id}', '{order_product_buyer_id}')";
+                sql = $"INSERT INTO orders (order_date, order_value, order_product_name, order_product_owner_id, order_product_buyer_id, order_reference) " +
+                    $"VALUES ('{now}', '{order_value}', '{order_product_name}', '{order_product_owner_id}', '{order_product_buyer_id}, '{order_reference}')";
                 Console.WriteLine("Running query: " + sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();

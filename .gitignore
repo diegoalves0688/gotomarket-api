@@ -1,2 +1,4 @@
-bin/
+**/bin/
 .vs/
+[Bb]in/
+[Oo]bj/
