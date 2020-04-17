@@ -103,7 +103,7 @@ Create new order
 curl --location \
 --request POST 'https://gotomarket.hopto.org/api/orders' \
 --header 'Content-Type: application/json' \
---data-raw '{"value": 15, "productName": "prod test", "ownerId": 2, "buyerId": 2}' \
+--data-raw '{"value": 15, "productName": "prod test", "ownerId": 2, "buyerId": 2, "cardNumber": "4111111111111111", "expirationDate": "12/2021", "securityCode": "123"}' \
 --insecure
 ```
 
