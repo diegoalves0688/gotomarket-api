@@ -22,13 +22,13 @@ namespace GoToMarket.Controllers
         [HttpPost]
         public void Post([FromBody] Product product)
         {
-            MysqlClient.InsertNewProductInMysql(product.Name, product.Url, product.Description, product.Quantity.ToString(), product.Price.ToString(), product.OwnerId); 
+            MysqlClient.InsertNewProductInMysql(product.Name, product.ProductUrl, product.Description, product.Quantity.ToString(), product.Price.ToString(), product.OwnerId); 
         }
 
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] Product product)
         {
-            MysqlClient.UpdateProductInMysql(id, product.Name, product.Url, product.Description, product.Quantity.ToString(), product.Price.ToString(), product.OwnerId);
+            MysqlClient.UpdateProductInMysql(id, product.Name, product.ProductUrl, product.Description, product.Quantity.ToString(), product.Price.ToString(), product.OwnerId);
         }
 
         [HttpDelete("{id}")]

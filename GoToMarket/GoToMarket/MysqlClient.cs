@@ -257,7 +257,7 @@ namespace GoToMarket
                 {
                     product.Id = rdr[0].ToString();
                     product.Name = rdr[1].ToString();
-                    product.Url = rdr[2].ToString();
+                    product.ProductUrl = rdr[2].ToString();
                     product.Description = rdr[3].ToString();
                     product.Quantity = long.TryParse(rdr[4].ToString(), out long quantity) ? quantity : 0;
                     product.Price = long.TryParse(rdr[5].ToString(), out long price) ? price : 0;
@@ -290,11 +290,13 @@ namespace GoToMarket
                 while (rdr.Read())
                 {
                     var product = new Product();
+                    product.Id = rdr[0].ToString();
                     product.Name = rdr[1].ToString();
-                    product.Url = rdr[2].ToString();
+                    product.ProductUrl = rdr[2].ToString();
                     product.Description = rdr[3].ToString();
                     product.Quantity = long.TryParse(rdr[4].ToString(), out long quantity) ? quantity : 0;
                     product.Price = long.TryParse(rdr[5].ToString(), out long price) ? price : 0;
+                    product.OwnerId = rdr[6].ToString();
                     productList.Add(product);
                 }
                 rdr.Close();
