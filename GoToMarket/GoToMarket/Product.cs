@@ -14,8 +14,8 @@ namespace GoToMarket
         [DataMember(Name = "description")]
         public string Description { get; set; }
 
-        [DataMember(Name = "productUrl")]
-        public string ProductUrl { get; set; }
+        [DataMember(Name = "imageUrl")]
+        public string ImageUrl { get; set; }
 
         [DataMember(Name = "price")]
         public long Price { get; set; }
