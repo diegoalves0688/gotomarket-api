@@ -10,15 +10,15 @@ namespace GoToMarket
 
 		#region User
 
-		public static void InsertNewUserInMysql(string user_name, string user_email, string user_address, string user_payment_id, string user_payment_key)
+		public static void InsertNewUserInMysql(string user_name,string user_password, string user_email, string user_address, string user_payment_id, string user_payment_key)
         {
             MySqlConnection conn = new MySqlConnection(connStr);
             try
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
-                string sql = "INSERT INTO users (user_name, user_email, user_address, user_payment_id, user_payment_key) " +
-                    "VALUES ('" + user_name + "','" + user_email + "','" + user_address + "','" + user_payment_id + "','" + user_payment_key + "')";
+                string sql = "INSERT INTO users (user_name, user_password, user_email, user_address, user_payment_id, user_payment_key) " +
+                    "VALUES ('" + user_name + "','" + user_password + "','" + user_email + "','" + user_address + "','" + user_payment_id + "','" + user_payment_key + "')";
                 Console.WriteLine("Running query: " + sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
@@ -32,7 +32,7 @@ namespace GoToMarket
             Console.WriteLine("Done.");
         }
 
-        public static void UpdateUserInMysql(string id, string user_name, string user_email, string user_address, string user_payment_id, string user_payment_key)
+        public static void UpdateUserInMysql(string id, string user_name, string user_password, string user_email, string user_address, string user_payment_id, string user_payment_key)
         {
             MySqlConnection conn = new MySqlConnection(connStr);
             try
@@ -41,6 +41,7 @@ namespace GoToMarket
                 conn.Open();
                 string sql = 
                     $"UPDATE users SET user_name = '{user_name}', " +
+                    $"user_password = '{user_password}', " +
                     $"user_email = '{user_email}', " +
                     $"user_address = '{user_address}', " +
                     $"user_payment_id = '{user_payment_id}', " +
@@ -77,10 +78,11 @@ namespace GoToMarket
                     long.TryParse(rdr[0].ToString(), out long id);
                     user.Id = id;
                     user.Name = rdr[1].ToString();
-                    user.Email = rdr[2].ToString();
-                    user.Address = rdr[3].ToString();
-                    user.Payment_id = rdr[4].ToString();
-                    user.Payment_key = rdr[5].ToString();
+                    user.Password = rdr[2].ToString();
+                    user.Email = rdr[3].ToString();
+                    user.Address = rdr[4].ToString();
+                    user.Payment_id = rdr[5].ToString();
+                    user.Payment_key = rdr[6].ToString();
                 }
                 rdr.Close();
             }
@@ -112,10 +114,11 @@ namespace GoToMarket
                     long.TryParse(rdr[0].ToString(), out long id);
                     user.Id = id;
                     user.Name = rdr[1].ToString();
-                    user.Email = rdr[2].ToString();
-                    user.Address = rdr[3].ToString();
-                    user.Payment_id = rdr[4].ToString();
-                    user.Payment_key = rdr[5].ToString();
+                    user.Password = rdr[2].ToString();
+                    user.Email = rdr[3].ToString();
+                    user.Address = rdr[4].ToString();
+                    user.Payment_id = rdr[5].ToString();
+                    user.Payment_key = rdr[6].ToString();
                 }
                 rdr.Close();
             }

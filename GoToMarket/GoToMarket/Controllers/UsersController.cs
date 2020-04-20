@@ -23,13 +23,24 @@ namespace GoToMarket.Controllers
         [HttpPost]
         public void Post([FromBody] User user)
         {
-            MysqlClient.InsertNewUserInMysql(user.Name, user.Email, user.Address, user.Payment_id, user.Payment_key);
+            MysqlClient.InsertNewUserInMysql(user.Name,
+                CryptoUtils.CryptoMD5.HashPassword(user.Password),
+                user.Email,
+                user.Address,
+                user.Payment_id,
+                user.Payment_key);
         }
 
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] User user)
         {
-            MysqlClient.UpdateUserInMysql(id, user.Name, user.Email, user.Address, user.Payment_id, user.Payment_key);
+            MysqlClient.UpdateUserInMysql(id,
+                user.Name,
+                user.Password,
+                user.Email,
+                user.Address,
+                user.Payment_id,
+                user.Payment_key);
         }
 
         [HttpDelete("{id}")]

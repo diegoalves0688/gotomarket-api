@@ -11,6 +11,9 @@ namespace GoToMarket
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
+        [DataMember(Name = "password")]
+        public string Password { get; set; }
+
         [DataMember(Name = "email")]
         public string Email { get; set; }
 
