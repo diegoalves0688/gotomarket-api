@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `gotomarket` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `gotomarket`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: gotomarket
@@ -27,12 +25,13 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `user_name` varchar(120) DEFAULT NULL,
+  `user_password` varchar(120) DEFAULT NULL,
   `user_email` varchar(120) DEFAULT NULL,
   `user_address` varchar(120) DEFAULT NULL,
   `user_payment_id` varchar(120) DEFAULT NULL,
   `user_payment_key` varchar(120) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +40,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'test1','lol@fmail.com','rua 1','432c5797-0450-4ef2-84c1-aff6b75e881c','UHIUQHYBINFOIQVLKQOJTQPHPIKTXYNHJCXVUFAW'),(4,'test1','lol2@fmail.com','rua 1','payid','paykey'),(5,'test1','lo2l@fmail.com','rua 1','payid','paykey');
+INSERT INTO `users` VALUES (1,'diego','diego123','diego.alves0688@gmail.com','rua teste, numero 12, Rio de Janeiro','432c5797-0450-4ef2-84c1-aff6b75e881c','UHIUQHYBINFOIQVLKQOJTQPHPIKTXYNHJCXVUFAW'),(2,'de','b0ac23d94dcef21e36e457b4abf6e0cb','diego1@gmail.com','de','de','de'),(3,'diegotest','b0ac23d94dcef21e36e457b4abf6e0cb','diego2@gmail.com','rua 2','123','123');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-17 20:40:10
+-- Dump completed on 2020-04-19 22:55:14
