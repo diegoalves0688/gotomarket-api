@@ -124,6 +124,22 @@ curl --location \
 --insecure
 ```
 
+Get order list by owner id
+```
+curl --location \
+--request GET 'https://gotomarket.hopto.org/api/orders/owner/1' \
+--header 'Content-Type: application/json' \
+--insecure
+```
+
+Get order list by buyer id
+```
+curl --location \
+--request GET 'https://gotomarket.hopto.org/api/orders/buyer/1' \
+--header 'Content-Type: application/json' \
+--insecure
+```
+
 Get order by id
 ```
 curl --location \
