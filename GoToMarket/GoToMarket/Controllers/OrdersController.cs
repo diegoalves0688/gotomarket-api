@@ -20,6 +20,18 @@ namespace GoToMarket.Controllers
             return MysqlClient.GetOrderByIdInMysql(id);
         }
 
+        [HttpGet("buyer/{buyerid}")]
+        public List<Order> GetOrdersByBuyerId(string buyerid)
+        {
+            return MysqlClient.GetOrdersByBuyerIdInMysql(buyerid);
+        }
+
+        [HttpGet("owner/{ownerid}")]
+        public List<Order> GetOrdersByOwnerId(string ownerid)
+        {
+            return MysqlClient.GetOrdersByOwnerIdInMysql(ownerid);
+        }
+
         [HttpPost]
         public void Post([FromBody] Order order)
         {

@@ -460,6 +460,80 @@ namespace GoToMarket
             return orderList;
         }
 
+        public static List<Order> GetOrdersByBuyerIdInMysql(string buyerId)
+        {
+            var orderList = new List<Order>();
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                string sql = $"SELECT * FROM orders WHERE order_product_buyer_id = '{buyerId}'";
+                Console.WriteLine("Running query: " + sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    var order = new Order();
+                    order.Id = rdr[0].ToString();
+                    if (DateTime.TryParse(rdr[1].ToString(), out DateTime date))
+                        order.Date = date;
+                    order.Value = long.TryParse(rdr[2].ToString(), out long value) ? value : 0;
+                    order.ProductName = rdr[3].ToString();
+                    order.OwnerId = long.TryParse(rdr[4].ToString(), out long owner) ? owner : 0;
+                    order.BuyerId = long.TryParse(rdr[5].ToString(), out long buyer) ? buyer : 0;
+                    orderList.Add(order);
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            conn.Close();
+            return orderList;
+        }
+
+        public static List<Order> GetOrdersByOwnerIdInMysql(string ownerId)
+        {
+            var orderList = new List<Order>();
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                string sql = $"SELECT * FROM orders WHERE order_product_owner_id = '{ownerId}'";
+                Console.WriteLine("Running query: " + sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    var order = new Order();
+                    order.Id = rdr[0].ToString();
+                    if (DateTime.TryParse(rdr[1].ToString(), out DateTime date))
+                        order.Date = date;
+                    order.Value = long.TryParse(rdr[2].ToString(), out long value) ? value : 0;
+                    order.ProductName = rdr[3].ToString();
+                    order.OwnerId = long.TryParse(rdr[4].ToString(), out long owner) ? owner : 0;
+                    order.BuyerId = long.TryParse(rdr[5].ToString(), out long buyer) ? buyer : 0;
+                    orderList.Add(order);
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            conn.Close();
+            return orderList;
+        }
+
         public static void DeleteOrderInMysql(string order_id)
         {
             MySqlConnection conn = new MySqlConnection(connStr);
