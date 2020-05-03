@@ -98,7 +98,11 @@ curl --location \
 
 Upload product image
 ```
-curl --location --request POST 'https://localhost/api/products/upload' --form 'data=@logo.png' --insecure
+curl --location \
+--request POST 'https://gotomarket.hopto.org/api/products/upload-image' \
+--header 'Content-Type: application/json' \
+--data-raw '{"image": "{base64imagecontent}", "name": "imagename"}' \
+--insecure
 ```
 
 ## Orders request examples:
