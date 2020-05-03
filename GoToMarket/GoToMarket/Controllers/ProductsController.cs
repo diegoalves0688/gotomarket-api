@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 
 namespace GoToMarket.Controllers
 {
@@ -41,40 +44,48 @@ namespace GoToMarket.Controllers
             MysqlClient.DeleteProductInMysql(id);
         }
 
-        [HttpPost("upload")]
-        public void upload()
+        [HttpPost("upload-image")]
+        public void Base64StringToBitmap(ImageContent imageContent)
         {
-            var newFileName = string.Empty;
-            var fileName = string.Empty;
-
-            if (HttpContext.Request.Form.Files != null)
+            try
             {
-                var files = HttpContext.Request.Form.Files;
+                Console.WriteLine($"Request received: " + JsonConvert.SerializeObject(imageContent));
 
-                foreach (var file in files)
+                byte[] imgBytes = Convert.FromBase64String(imageContent.Image);
+
+                using (var imageFile = new FileStream(@"C:\gotomarket\" + imageContent.Name + ".png", FileMode.Create))
                 {
-                    if (file.Length > 0)
-                    {
-                        fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-
-                        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                        var FileExtension = Path.GetExtension(fileName);
-
-                        newFileName = myUniqueFileName + FileExtension;
-
-                        fileName = $@"\gotomarket\{newFileName}";
-
-                        using (FileStream fs = System.IO.File.Create(fileName))
-                        {
-                            file.CopyTo(fs);
-                            fs.Flush();
-                        }
-                    }
+                    imageFile.Write(imgBytes, 0, imgBytes.Length);
+                    imageFile.Flush();
                 }
-
-
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            
         }
+
+        [HttpGet("images/{imageId}")]
+        public IActionResult GetImage(string imageId)
+        {
+            try
+            {
+                imageId = imageId.Replace(".png", "").Replace(".jpg", "");
+
+                var path = @"C:\gotomarket\" + imageId + ".png";
+
+                var bytes = System.IO.File.ReadAllBytes(path);
+
+                return File(bytes, "image/png");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+            return null;
+        }
+
     }
 }
