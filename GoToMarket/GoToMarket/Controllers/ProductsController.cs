@@ -45,12 +45,10 @@ namespace GoToMarket.Controllers
         public void upload()
         {
             var newFileName = string.Empty;
+            var fileName = string.Empty;
 
             if (HttpContext.Request.Form.Files != null)
             {
-                var fileName = string.Empty;
-                string PathDB = string.Empty;
-
                 var files = HttpContext.Request.Form.Files;
 
                 foreach (var file in files)
