@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoToMarket.Controllers
@@ -35,6 +39,44 @@ namespace GoToMarket.Controllers
         public void Delete(string id)
         {
             MysqlClient.DeleteProductInMysql(id);
+        }
+
+        [HttpPost("upload")]
+        public void upload()
+        {
+            var newFileName = string.Empty;
+
+            if (HttpContext.Request.Form.Files != null)
+            {
+                var fileName = string.Empty;
+                string PathDB = string.Empty;
+
+                var files = HttpContext.Request.Form.Files;
+
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+
+                        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                        var FileExtension = Path.GetExtension(fileName);
+
+                        newFileName = myUniqueFileName + FileExtension;
+
+                        fileName = $@"\gotomarket\{newFileName}";
+
+                        using (FileStream fs = System.IO.File.Create(fileName))
+                        {
+                            file.CopyTo(fs);
+                            fs.Flush();
+                        }
+                    }
+                }
+
+
+            }
         }
     }
 }
