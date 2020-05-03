@@ -96,6 +96,22 @@ curl --location \
 --insecure
 ```
 
+Upload product image
+```
+curl --location \
+--request POST 'https://gotomarket.hopto.org/api/products/upload-image' \
+--header 'Content-Type: application/json' \
+--data-raw '{"image": "{base64imagecontent}", "name": "imagename"}' \
+--insecure
+```
+
+Get product image
+```
+curl --location \
+--request GET 'https://gotomarket.hopto.org/api/products/images/sample' \
+--insecure
+```
+
 ## Orders request examples:
 
 Create new order
