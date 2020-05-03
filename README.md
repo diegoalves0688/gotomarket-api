@@ -105,6 +105,13 @@ curl --location \
 --insecure
 ```
 
+Get product image
+```
+curl --location \
+--request GET 'https://gotomarket.hopto.org/api/products/images/sample' \
+--insecure
+```
+
 ## Orders request examples:
 
 Create new order
