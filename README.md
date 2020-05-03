@@ -96,6 +96,11 @@ curl --location \
 --insecure
 ```
 
+Upload product image
+```
+curl --location --request POST 'https://localhost/api/products/upload' --form 'data=@logo.png' --insecure
+```
+
 ## Orders request examples:
 
 Create new order
