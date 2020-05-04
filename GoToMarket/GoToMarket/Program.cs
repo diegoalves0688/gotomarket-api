@@ -21,7 +21,8 @@ namespace GoToMarket
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
-					webBuilder.UseUrls("http://*:80", "https://*:443");
+					webBuilder.UseUrls("https://*:443");
+					//webBuilder.UseUrls("http://*:80");
 				});
 	}
 }

@@ -44,6 +44,7 @@ namespace GoToMarket.Controllers
             MysqlClient.DeleteProductInMysql(id);
         }
 
+
         [HttpPost("upload-image")]
         public void Base64StringToBitmap(ImageContent imageContent)
         {
@@ -52,6 +53,8 @@ namespace GoToMarket.Controllers
                 Console.WriteLine($"Request received: " + JsonConvert.SerializeObject(imageContent));
 
                 byte[] imgBytes = Convert.FromBase64String(imageContent.Image);
+
+                MysqlClient.InsertNewImageInMysql(imageContent.Name, imageContent.Image);
 
                 using (var imageFile = new FileStream(@"C:\gotomarket\" + imageContent.Name + ".png", FileMode.Create))
                 {
@@ -64,6 +67,26 @@ namespace GoToMarket.Controllers
                 Console.WriteLine($"Error: {ex.Message}");
             }
             
+        }
+
+        [HttpGet("image/{imageId}")]
+        public ImageContent GetBase64StringImage(string imageId)
+        {
+            try
+            {
+                Console.WriteLine($"Trying get image: {imageId}");
+
+                var imageContent = MysqlClient.GetImageByNameInMysql(imageId);
+
+                Console.WriteLine($"Response: " + JsonConvert.SerializeObject(imageContent));
+
+                return imageContent;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return null;
         }
 
         [HttpGet("images/{imageId}")]

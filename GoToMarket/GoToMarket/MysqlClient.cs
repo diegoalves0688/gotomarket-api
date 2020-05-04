@@ -193,6 +193,58 @@ namespace GoToMarket
 
         #region Product
 
+        public static void InsertNewImageInMysql(string image_name, string image_data)
+        {
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+                string sql = "INSERT INTO images (image_name, image_data) " +
+                    "VALUES ('" + image_name + "', '" + image_data + "')";
+                Console.WriteLine("Running query: " + sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            conn.Close();
+            Console.WriteLine("Done.");
+        }
+
+        public static ImageContent GetImageByNameInMysql(string image_name)
+        {
+            var imageContent = new ImageContent();
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                string sql = "SELECT * FROM images WHERE image_name='" + image_name + "'";
+                Console.WriteLine("Running query: " + sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    imageContent.Name = rdr[1].ToString();
+                    imageContent.Image = rdr[2].ToString();
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            conn.Close();
+            return imageContent;
+        }
+
         public static void InsertNewProductInMysql(string product_name, string product_url, string product_description, string product_quantity, string product_price, string product_owner_id)
         {
             MySqlConnection conn = new MySqlConnection(connStr);
@@ -300,6 +352,10 @@ namespace GoToMarket
                     product.Quantity = long.TryParse(rdr[4].ToString(), out long quantity) ? quantity : 0;
                     product.Price = long.TryParse(rdr[5].ToString(), out long price) ? price : 0;
                     product.OwnerId = rdr[6].ToString();
+
+                    if (product.Quantity <= 0)
+                        continue;
+
                     productList.Add(product);
                 }
                 rdr.Close();
