@@ -1,5 +1,5 @@
 
-# Gotomarket-api
+# Gotomarket-api.
 
 https://gotomarket.hopto.org/api/{resource}/{id}
 
