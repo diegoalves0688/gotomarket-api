@@ -9,7 +9,7 @@ Resource list:
 - products
 - test
 ## User request examples:
-
+-
 Create new user:
 ``` 
 curl --location \
