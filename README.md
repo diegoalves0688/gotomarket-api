@@ -1,13 +1,13 @@
 
-# Gotomarket-api.
-...
+# Gotomarket-api
+
 https://gotomarket.hopto.org/api/{resource}/{id}
 .
 Resource list:
 - users
 - orders
 - products
-- test
+
 ## User request examples:
 -
 Create new user:
