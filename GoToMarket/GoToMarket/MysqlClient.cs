@@ -193,15 +193,15 @@ namespace GoToMarket
 
         #region Product
 
-        public static void InsertNewImageInMysql(string image_name, string image_data)
+        public static void InsertNewProductInMysql(string product_name, string product_image_url, string product_description, string product_quantity, string product_price, string product_owner_id)
         {
             MySqlConnection conn = new MySqlConnection(connStr);
             try
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
-                string sql = "INSERT INTO images (image_name, image_data) " +
-                    "VALUES ('" + image_name + "', '" + image_data + "')";
+                string sql = "INSERT INTO products (product_name, product_image_url, product_description, product_quantity, product_price, product_owner_id) " +
+                    "VALUES ('" + product_name + "', '" + product_image_url + "', '" + product_description + "', " + product_quantity + ", " + product_price + ", '" + product_owner_id + "')";
                 Console.WriteLine("Running query: " + sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
@@ -215,59 +215,7 @@ namespace GoToMarket
             Console.WriteLine("Done.");
         }
 
-        public static ImageContent GetImageByNameInMysql(string image_name)
-        {
-            var imageContent = new ImageContent();
-            MySqlConnection conn = new MySqlConnection(connStr);
-            try
-            {
-                Console.WriteLine("Connecting to MySQL...");
-                conn.Open();
-
-                string sql = "SELECT * FROM images WHERE image_name='" + image_name + "'";
-                Console.WriteLine("Running query: " + sql);
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    imageContent.Name = rdr[1].ToString();
-                    imageContent.Image = rdr[2].ToString();
-                }
-                rdr.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            conn.Close();
-            return imageContent;
-        }
-
-        public static void InsertNewProductInMysql(string product_name, string product_url, string product_description, string product_quantity, string product_price, string product_owner_id)
-        {
-            MySqlConnection conn = new MySqlConnection(connStr);
-            try
-            {
-                Console.WriteLine("Connecting to MySQL...");
-                conn.Open();
-                string sql = "INSERT INTO products (product_name, product_url, product_description, product_quantity, product_price, product_owner_id) " +
-                    "VALUES ('" + product_name + "', '" + product_url + "', '" + product_description + "', " + product_quantity + ", " + product_price + ", '" + product_owner_id + "')";
-                Console.WriteLine("Running query: " + sql);
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            conn.Close();
-            Console.WriteLine("Done.");
-        }
-
-        public static void UpdateProductInMysql(string id, string product_name, string product_url, string product_description, string product_quantity, string product_price, string product_owner_id)
+        public static void UpdateProductInMysql(string id, string product_name, string product_image_url, string product_description, string product_quantity, string product_price, string product_owner_id)
         {
             MySqlConnection conn = new MySqlConnection(connStr);
             try
@@ -276,7 +224,7 @@ namespace GoToMarket
                 conn.Open();
                 string sql =
                     $"UPDATE products SET product_name = '{product_name}', " +
-                    $"product_url = '{product_url}', " +
+                    $"product_image_url = '{product_image_url}', " +
                     $"product_description = '{product_description}', " +
                     $"product_quantity = {product_quantity}, " +
                     $"product_price = {product_price},  " +
