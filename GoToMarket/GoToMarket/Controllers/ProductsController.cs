@@ -54,15 +54,21 @@ namespace GoToMarket.Controllers
 
                 byte[] imgBytes = Convert.FromBase64String(imageContent.Image);
 
-                using (var imageFile = new FileStream(@"C:\gotomarket\" + imageContent.Name + ".png", FileMode.Create))
+                var path = @"C:\gotomarket";
+                var filePath = Path.Combine(path, imageContent.Name + ".png");
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                using (var imageFileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    imageFile.Write(imgBytes, 0, imgBytes.Length);
-                    imageFile.Flush();
+                    imageFileStream.Write(imgBytes, 0, imgBytes.Length);
+                    imageFileStream.Flush();
                 }
             }
             catch(Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine($"Error on trying save image. Please check if : {ex.Message}");
             }
             
         }
