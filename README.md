@@ -7,7 +7,7 @@ Resource list:
 - users
 - orders
 - products
-
+- test
 ## User request examples:
 
 Create new user:
