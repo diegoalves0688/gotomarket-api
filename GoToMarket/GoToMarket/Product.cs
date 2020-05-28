@@ -25,5 +25,8 @@ namespace GoToMarket
 
         [DataMember(Name = "ownerId")]
         public string OwnerId { get; set; }
+
+        [DataMember(Name = "category")]
+        public string Category { get; set; }
     }
 }

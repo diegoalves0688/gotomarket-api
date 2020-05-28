@@ -317,6 +317,88 @@ namespace GoToMarket
             return productList;
         }
 
+        public static List<Product> SearchProductsByNameInMysql(string param)
+        {
+            var productList = new List<Product>();
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                string sql = $"SELECT * FROM products WHERE product_name LIKE '%{param}%'";
+                Console.WriteLine("Running query: " + sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    var product = new Product();
+                    product.Id = rdr[0].ToString();
+                    product.Name = rdr[1].ToString();
+                    product.ImageUrl = rdr[2].ToString();
+                    product.Description = rdr[3].ToString();
+                    product.Quantity = long.TryParse(rdr[4].ToString(), out long quantity) ? quantity : 0;
+                    product.Price = long.TryParse(rdr[5].ToString(), out long price) ? price : 0;
+                    product.OwnerId = rdr[6].ToString();
+
+                    if (product.Quantity <= 0)
+                        continue;
+
+                    productList.Add(product);
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            conn.Close();
+            return productList;
+        }
+
+        public static List<Product> SearchProductsByCategoryInMysql(string category)
+        {
+            var productList = new List<Product>();
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                string sql = $"SELECT * FROM products WHERE product_category='{category}'";
+                Console.WriteLine("Running query: " + sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    var product = new Product();
+                    product.Id = rdr[0].ToString();
+                    product.Name = rdr[1].ToString();
+                    product.ImageUrl = rdr[2].ToString();
+                    product.Description = rdr[3].ToString();
+                    product.Quantity = long.TryParse(rdr[4].ToString(), out long quantity) ? quantity : 0;
+                    product.Price = long.TryParse(rdr[5].ToString(), out long price) ? price : 0;
+                    product.OwnerId = rdr[6].ToString();
+
+                    if (product.Quantity <= 0)
+                        continue;
+
+                    productList.Add(product);
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            conn.Close();
+            return productList;
+        }
+
         public static void DeleteProductInMysql(string product_id)
         {
             MySqlConnection conn = new MySqlConnection(connStr);

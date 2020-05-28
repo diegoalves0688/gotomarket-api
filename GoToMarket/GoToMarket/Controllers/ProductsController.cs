@@ -26,6 +26,15 @@ namespace GoToMarket.Controllers
             return MysqlClient.GetProductByIdInMysql(id);
         }
 
+        [HttpGet("search")]
+        public List<Product> SearchProduct(string param, string type)
+        {
+            if(type.Equals("category"))
+                return MysqlClient.SearchProductsByCategoryInMysql(param);
+
+            return MysqlClient.SearchProductsByNameInMysql(param);
+        }
+
         [HttpPost]
         public void Post([FromBody] Product product)
         {
